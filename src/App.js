@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from "./pages/Home/Home";
+import GameScreen from "./pages/GameScreen/GameScreen";
+import PlayerWinScreen from "./pages/PlayerWinScreen/PlayerWinScreen";
+
+const App = () => {
+    const [player1, setPlayer1] = useState("");
+    const [player2, setPlayer2] = useState("")
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route 
+                    exact path="/" 
+                    element={<Home setPlayer1={setPlayer1} setPlayer2={setPlayer2}/>} 
+                />
+                <Route 
+                    path="/game/:username1/:username2" 
+                    element={<GameScreen player1={player1} player2={player2}/>} 
+                />
+                <Route 
+                    path="/winner" 
+                    element={<PlayerWinScreen />} 
+                />
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App;
