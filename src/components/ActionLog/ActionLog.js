@@ -9,9 +9,9 @@ const ActionLog = ({ player1, player2, player1Position, player2Position }) => {
             <ul className='action-log__list'>
                 <li className='action-log__list--item'>{player1} moved for 1 AP</li>
                 <li className='action-log__list--item'>{player1} listened for 1 AP</li>
-                <li className='action-log__list--item'>{player2} shot from {player2Position} for 2 AP</li>
+                <li className='action-log__list--item'>{player2} shot from {player2Position.x}, {player2Position.y} for 2 AP</li>
                 <li className='action-log__list--item'>{player2} missed!</li>
-                <li className='action-log__list--item'>{player1} shot from {player1Position} for 2 AP</li>
+                <li className='action-log__list--item'>{player1} shot from {player1Position.x}, {player1Position.y} for 2 AP</li>
                 <li className='action-log__list--item'>{player1} shot {player2}!</li>
             </ul>
         </div>
