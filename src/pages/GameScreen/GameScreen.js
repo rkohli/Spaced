@@ -5,8 +5,6 @@ import Player2HealthAP from '../../components/Player2HealthAP/Player2HealthAP';
 import Map from '../../components/Map/Map';
 import PlayerReference from '../../components/PlayerReference/PlayerReference';
 import ActionLog from '../../components/ActionLog/ActionLog';
-import { getAdjacentCells, isValidCell } from '../../components/PlayerReference/PlayerReference';
-import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 const GameScreen = ({player1, player2}) => {
@@ -18,30 +16,83 @@ const GameScreen = ({player1, player2}) => {
     const [player2Position, setPlayer2Position] = useState({ x: 3, y: 3 });
     const [highlightedCells, setHighlightedCells] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState('player1');
+    const [isMoveButtonClicked, setIsMoveButtonClicked] = useState(false);
+    const [isListenCellHighlighted, setIsListenCellHighlighted] = useState(false);
 
-    const handleSkip = () => {
-        setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
-        setHighlightedCells([]);
-    };
+    const currentPlayerName = currentPlayer === 'player1' ? 'Player 1' : 'Player 2';
 
-    const onMove = (adjacentCells) => {
+    const handleMoveButtonClick = () => {
+        setIsMoveButtonClicked(true);
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells(adjacentCells);
     };
 
+    const handleListenClick = () => {
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
+        const quadrantX = opposingPlayerPosition.x < 2 ? 0 : 2;
+        const quadrantY = opposingPlayerPosition.y < 2 ? 0 : 2;
+        const listenCells = [];
+    
+        for (let i = quadrantX; i < quadrantX + 2; i++) {
+            for (let j = quadrantY; j < quadrantY + 2; j++) {
+                listenCells.push({ x: i, y: j });
+            }
+        }
+    
+        setHighlightedCells(listenCells);
+        setIsMoveButtonClicked(false);
+        setIsListenCellHighlighted(true);
+    };
+
     const handleCellClick = (position) => {
+        if (!isMoveButtonClicked) {
+            return;
+        } 
         if (isCellHighlighted(position)) {
             if (currentPlayer === 'player1') {
                 setPlayer1Position(position);
             } else {
                 setPlayer2Position(position);
             }
-            setHighlightedCells([])
+            setHighlightedCells([]);
+            setIsMoveButtonClicked(false);
         }
     };
 
-    const isCellHighlighted = (position) => 
-        highlightedCells.some((cell) => cell.x === position.x && cell.y === position.y);
+    const handleSkip = () => {
+        setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
+        setHighlightedCells([]);
+        setIsListenCellHighlighted(false);
+    };
 
+    const onMove = (adjacentCells) => {
+        setHighlightedCells(adjacentCells);
+        setIsListenCellHighlighted(false);
+    };
+
+    const isCellHighlighted = (position) => 
+    highlightedCells.some((cell) => cell.x === position.x && cell.y === position.y);
+
+    const getAdjacentCells = ({ x, y }) => {
+        const directions = [
+            { dx: -1, dy: 0 }, // Left
+            { dx: 1, dy: 0 }, // Right
+            { dx: 0, dy: -1 }, // Up
+            { dx: 0, dy: 1 }, // Down
+        ];
+
+        const adjacentCells = directions
+            .map(({ dx, dy }) => ({ x: x + dx, y: y + dy }))
+            .filter(({ x, y }) => isValidCell(x, y));
+
+        return adjacentCells;
+    };
+
+    const isValidCell = (x, y) => {
+        return x >= 0 && x < 4 && y >= 0 && y < 4;
+    };
 
     return (
         <div className='gamescreen'>
@@ -62,24 +113,31 @@ const GameScreen = ({player1, player2}) => {
                     currentPlayer={currentPlayer}
                     highlightedCells={highlightedCells}
                     isHighlighted={isCellHighlighted}
-                    isCellHighlighted={isCellHighlighted}
+                    isListenCellHighlighted={isListenCellHighlighted}
                     onCellClick={handleCellClick} 
                 />
             </div>
             <footer className='footer'>
                 <PlayerReference 
+                    currentPlayer={currentPlayer}
+                    currentPlayerName={currentPlayerName}
+                    isMoveButtonClicked={isMoveButtonClicked}
+                    onCellClick={handleCellClick}
+                    handleMoveButtonClick={handleMoveButtonClick}
+                    onListenClick={handleListenClick}
+                    onSkip={handleSkip}
+                    onMove={onMove}
+                    player1AP={player1AP}
+                    player2AP={player2AP}
                     player1Position={player1Position}
                     setPlayer1Position={setPlayer1Position}
                     player2Position={player2Position}
                     setPlayer2Position={setPlayer2Position}
-                    player1AP={player1AP}
-                    player2AP={player2AP}
                     highlightedCells={highlightedCells}
-                    onMove={onMove}
-                    currentPlayer={currentPlayer}
-                    handleCellClick={handleCellClick}
                     isCellHighlighted={isCellHighlighted}
-                    onSkip={handleSkip} />
+                    getAdjacentCells={getAdjacentCells}
+                    isValidCell={isValidCell}
+                    />
                 <ActionLog 
                     player1Position={player1Position} 
                     player2Position={player2Position}
