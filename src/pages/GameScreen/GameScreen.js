@@ -21,6 +21,7 @@ const GameScreen = ({player1, player2}) => {
 
     const handleSkip = () => {
         setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
+        setHighlightedCells([]);
     };
 
     const onMove = (adjacentCells) => {
@@ -28,13 +29,14 @@ const GameScreen = ({player1, player2}) => {
     };
 
     const handleCellClick = (position) => {
-        if (currentPlayer === 'player1') {
-            setPlayer1Position(position);
-        } else {
-            setPlayer2Position(position);
+        if (isCellHighlighted(position)) {
+            if (currentPlayer === 'player1') {
+                setPlayer1Position(position);
+            } else {
+                setPlayer2Position(position);
+            }
+            setHighlightedCells([])
         }
-        setHighlightedCells([]);
-        setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
     };
 
     const isCellHighlighted = (position) => 
@@ -60,7 +62,7 @@ const GameScreen = ({player1, player2}) => {
                     currentPlayer={currentPlayer}
                     highlightedCells={highlightedCells}
                     isHighlighted={isCellHighlighted}
-                    isHighlighted={isCellHighlighted}
+                    isCellHighlighted={isCellHighlighted}
                     onCellClick={handleCellClick} 
                 />
             </div>
@@ -76,7 +78,7 @@ const GameScreen = ({player1, player2}) => {
                     onMove={onMove}
                     currentPlayer={currentPlayer}
                     handleCellClick={handleCellClick}
-                    isHighlighted={isCellHighlighted}
+                    isCellHighlighted={isCellHighlighted}
                     onSkip={handleSkip} />
                 <ActionLog 
                     player1Position={player1Position} 

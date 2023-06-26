@@ -12,31 +12,25 @@ const PlayerReference = ({ currentPlayer, player1Position, setPlayer1Position, p
     };
 
     const onCellClick = (position) => {
-        if (isMoveButtonClicked && isCellHighlighted) {
+        if (!isMoveButtonClicked) {
+            return;
+        }
+        if (isMoveButtonClicked) {
             if (currentPlayer === 'player1') {
                 setPlayer1Position(position);
             } else {
                 setPlayer2Position(position);
             }
             setIsMoveButtonClicked(false);
+            onMove([]);
         }
-    };
-
-    const handleAdjacentCellClick = (position) => {
-        if (currentPlayer === 'player1') {
-            setPlayer1Position(position);
-        } else {
-            setPlayer2Position(position);
-        }
-        onMove([]);
-        onSkip();
     };
 
     const handleMoveButtonClick = () => {
         setIsMoveButtonClicked(true);
-        // const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
-        // const adjacentCells = getAdjacentCells(currentPlayerPosition);
-        // onMove(adjacentCells)
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        const adjacentCells = getAdjacentCells(currentPlayerPosition);
+        onMove(adjacentCells)
     };
 
     return (
@@ -65,8 +59,8 @@ const PlayerReference = ({ currentPlayer, player1Position, setPlayer1Position, p
                 <button onClick={onSkip}>Skip</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
 const getAdjacentCells = ({ x, y }) => {
     const directions = [
