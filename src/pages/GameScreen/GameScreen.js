@@ -37,42 +37,9 @@ const GameScreen = ({player1, player2}) => {
         setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
     };
 
-    // const onCellClick = (position) => {
-    //     const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
-    //     if (currentPlayerPosition.x === position.x && currentPlayerPosition.y === position.y) {
-    //         return;
-    //     }
+    const isCellHighlighted = (position) => 
+        highlightedCells.some((cell) => cell.x === position.x && cell.y === position.y);
 
-    //     const adjacentCells = getAdjacentCells(currentPlayerPosition);
-    //     const isValidMove = adjacentCells.some(
-    //         ({ x, y }) => x === position.x && y === position.y
-    //     );
-    //     if (isValidMove) {
-    //         if (currentPlayer === 'player1') {
-    //             setPlayer1Position(position);
-    //         } else {
-    //             setPlayer2Position(position);
-    //         }
-    //         setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
-    //     }
-    // };
-
-    // const getAdjacentCells = ({ x, y }) => {
-    //     const directions = [
-    //         { dx: -1, dy: 0 }, //Left
-    //         { dx: 1, dy: 0 }, //Right
-    //         { dx: 0, dy: -1 }, //Up
-    //         { dx: 0, dy: 1 }, //Down
-    //     ];
-
-    //     const adjacentCells = directions.map(({ dx, dy }) => ({ x: x + dx, y: y + dy })).filter(({ x, y }) => isValidCell(x, y));
-
-    //     return adjacentCells;
-    // };
-
-    // const isValidCell = (x, y) => {
-    //     return x >= 0 && x < 4 && y >= 0 && y < 4;
-    // };
 
     return (
         <div className='gamescreen'>
@@ -92,6 +59,8 @@ const GameScreen = ({player1, player2}) => {
                     player2Position={player2Position}
                     currentPlayer={currentPlayer}
                     highlightedCells={highlightedCells}
+                    isHighlighted={isCellHighlighted}
+                    isHighlighted={isCellHighlighted}
                     onCellClick={handleCellClick} 
                 />
             </div>
@@ -107,6 +76,7 @@ const GameScreen = ({player1, player2}) => {
                     onMove={onMove}
                     currentPlayer={currentPlayer}
                     handleCellClick={handleCellClick}
+                    isHighlighted={isCellHighlighted}
                     onSkip={handleSkip} />
                 <ActionLog 
                     player1Position={player1Position} 

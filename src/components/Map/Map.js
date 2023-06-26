@@ -2,7 +2,7 @@ import './Map.scss';
 import { useState } from 'react';
 import Cell from '../Cell/Cell';
 
-const Map = ({ player1Position, player2Position, currentPlayer, onCellClick }) => {
+const Map = ({ player1Position, player2Position, currentPlayer, onCellClick, highlightedCells, isHighlighted }) => {
     const renderMap = () => {
         const map = [];
         for (let i = 0; i < 4; i++) {
@@ -13,10 +13,13 @@ const Map = ({ player1Position, player2Position, currentPlayer, onCellClick }) =
                 const isPlayer2Visible = 
                     currentPlayer === 'player2' && (i === player2Position.x && j === player2Position.y);
 
+                const isCellHighlighted = highlightedCells.some((cell) => cell.x === i && cell.y === j);
+                
                 row.push(
                     <Cell
                         isPlayer1={isPlayer1Visible}
                         isPlayer2={isPlayer2Visible}
+                        isHighlighted={isCellHighlighted}
                         key={`${i}-${j}`}
                         onClick={() => onCellClick({ x: i, y: j })}
                     />

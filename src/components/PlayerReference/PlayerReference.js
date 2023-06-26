@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import './PlayerReference.scss';
 
-const PlayerReference = ({ currentPlayer, player1Position, setPlayer1Position, player2Position, setPlayer2Position, player1AP, player2AP, highlightedCells, onMove, handleCellClick, onSkip }) => {
+const PlayerReference = ({ currentPlayer, player1Position, setPlayer1Position, player2Position, setPlayer2Position, player1AP, player2AP, highlightedCells, onMove, handleCellClick, onSkip, isCellHighlighted }) => {
     const currentPlayerName = currentPlayer === 'player1' ? 'Player 1' : 'Player 2';
     const [isMoveButtonClicked, setIsMoveButtonClicked] = useState(false);
     
     const renderHighlightedCells = () => {
         return highlightedCells.map((cell, index) => (
-            <div key={index} className="cell highlighted" onClick={() => onCellClick(cell)}></div>
+            <div key={index} className={`cell ${isCellHighlighted(cell) ? 'highlighted' : ''}`} onClick={() => onCellClick(cell)}></div>
         ));
     };
 
     const onCellClick = (position) => {
-        if (isMoveButtonClicked) {
+        if (isMoveButtonClicked && isCellHighlighted) {
             if (currentPlayer === 'player1') {
                 setPlayer1Position(position);
             } else {
@@ -22,10 +22,21 @@ const PlayerReference = ({ currentPlayer, player1Position, setPlayer1Position, p
         }
     };
 
+    const handleAdjacentCellClick = (position) => {
+        if (currentPlayer === 'player1') {
+            setPlayer1Position(position);
+        } else {
+            setPlayer2Position(position);
+        }
+        onMove([]);
+        onSkip();
+    };
+
     const handleMoveButtonClick = () => {
-        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
-        const adjacentCells = getAdjacentCells(currentPlayerPosition);
-        onMove(adjacentCells)
+        setIsMoveButtonClicked(true);
+        // const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        // const adjacentCells = getAdjacentCells(currentPlayerPosition);
+        // onMove(adjacentCells)
     };
 
     return (
