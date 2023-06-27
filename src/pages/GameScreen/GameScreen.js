@@ -6,6 +6,7 @@ import Map from '../../components/Map/Map';
 import PlayerReference from '../../components/PlayerReference/PlayerReference';
 import ActionLog from '../../components/ActionLog/ActionLog';
 import { useState } from 'react';
+import SwitchPlayer from '../../components/SwitchPlayer/SwitchPlayer';
 
 const GameScreen = ({player1, player2}) => {
     const [player1Health, setPlayer1Health] = useState(2)
@@ -20,8 +21,11 @@ const GameScreen = ({player1, player2}) => {
     const [isListenCellHighlighted, setIsListenCellHighlighted] = useState(false);
     const [isKnifeButtonClicked, setIsKnifeButtonClicked] = useState(false);
     const [isShootButtonClicked, setIsShootButtonClicked] = useState(false);
+    const [showSwitchPlayer, setShowSwitchPlayer] = useState(false);
+    const [actionLog, setActionLog] = useState([]);
 
-    const currentPlayerName = currentPlayer === 'player1' ? 'Player 1' : 'Player 2';
+    const currentPlayerName = currentPlayer === 'player1' ? `${player1}` : `${player2}`;
+    const opposingPlayerName = currentPlayer === 'player1' ? `${player2}` : `${player1}`;
 
     const handleMoveButtonClick = () => {
         setIsMoveButtonClicked(true);
@@ -29,6 +33,7 @@ const GameScreen = ({player1, player2}) => {
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
+        addActionToLog('Move');
     };
 
     const handleListenClick = () => {
@@ -52,6 +57,8 @@ const GameScreen = ({player1, player2}) => {
         } else {
             setPlayer2AP(player2AP - 1);
         }
+
+        addActionToLog('Listen');
     };
 
     const handleKnifeClick = () => {
@@ -60,15 +67,17 @@ const GameScreen = ({player1, player2}) => {
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
+        addActionToLog('Knife');
     }
 
     const handleShootClick = () => {
         setIsShootButtonClicked(true);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
-        const rowCells = getRowCells(currentPlayerPosition.x);
-        const columnCells = getColumnCells(currentPlayerPosition.y);
+        const rowCells = getRowCells(currentPlayerPosition.x).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
+        const columnCells = getColumnCells(currentPlayerPosition.y).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         setHighlightedCells([...rowCells, ...columnCells])
+        addActionToLog('Shoot');
     }
 
     const handleCellClick = (position) => {
@@ -137,12 +146,17 @@ const GameScreen = ({player1, player2}) => {
     };
 
     const handleSkip = () => {
+        setShowSwitchPlayer(true);
+    };
+
+    const handleNext = () => {
         setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
         setHighlightedCells([]);
         setIsListenCellHighlighted(false);
         setPlayer1AP(3);
-        setPlayer2AP(3);
-    };
+        setPlayer2AP(3)
+        setShowSwitchPlayer(false);
+    } 
 
     const onMove = (adjacentCells) => {
         setHighlightedCells(adjacentCells);
@@ -193,6 +207,31 @@ const GameScreen = ({player1, player2}) => {
         return x >= 0 && x < 4 && y >= 0 && y < 4;
     };
 
+    const addActionToLog = (action) => {
+        let actionMessage;
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+
+        switch (action) {
+            case 'Move':
+                actionMessage = `${currentPlayerName} moved for 1 AP`;
+                break;
+            case 'Listen':
+                actionMessage = `${currentPlayerName} listened for 1 AP`;
+                break;
+            case 'Knife':
+                actionMessage = `${currentPlayerName} knifed for 2 AP`;
+                break;
+            case 'Shoot':
+                actionMessage = `${currentPlayerName} shot from ${currentPlayerPosition.id} for 2 AP`;
+                break;
+            default:
+                actionMessage = '';
+                break;
+        }
+
+        setActionLog([...actionLog, actionMessage]);
+    };
+
     return (
         <div className='gamescreen'>
             <header className='header'>
@@ -205,6 +244,13 @@ const GameScreen = ({player1, player2}) => {
                     player2AP={player2AP}
                     player2={player2} />
             </header>
+            {showSwitchPlayer && (
+                <SwitchPlayer 
+                    opposingPlayerName={opposingPlayerName}
+                    onBack={() => setShowSwitchPlayer(false)}
+                    onNext={handleNext}
+                />
+            )}
             <div className='map'>
                 <Map 
                     player1Position={player1Position} 
@@ -240,10 +286,7 @@ const GameScreen = ({player1, player2}) => {
                     isValidCell={isValidCell}
                     />
                 <ActionLog 
-                    player1Position={player1Position} 
-                    player2Position={player2Position}
-                    player1={player1}
-                    player2={player2} />
+                    actionLog={actionLog} />
             </footer>
         </div>
     )

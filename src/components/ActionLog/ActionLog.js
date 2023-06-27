@@ -1,21 +1,22 @@
 import './ActionLog.scss';
 
-const ActionLog = ({ player1, player2, player1Position, player2Position }) => {
+const ActionLog = ({ actionLog }) => {
+    const reversedActionLog = [...actionLog].reverse();
+
     return (
         <div className="action-log">
             <div className='action-log__header'>
                 <h3 className='action-log__header--title'>Action Log</h3>
             </div>
             <ul className='action-log__list'>
-                <li className='action-log__list--item'>{player1} moved for 1 AP</li>
-                <li className='action-log__list--item'>{player1} listened for 1 AP</li>
-                <li className='action-log__list--item'>{player2} shot from {player2Position.x}, {player2Position.y} for 2 AP</li>
-                <li className='action-log__list--item'>{player2} missed!</li>
-                <li className='action-log__list--item'>{player1} shot from {player1Position.x}, {player1Position.y} for 2 AP</li>
-                <li className='action-log__list--item'>{player1} shot {player2}!</li>
+                {reversedActionLog.map((action, index) => (
+                    <li key={index} className='action-log__list--item'>
+                        {action}
+                    </li>
+                ))}
             </ul>
         </div>
-    )
-}
+    );
+};
 
 export default ActionLog;
