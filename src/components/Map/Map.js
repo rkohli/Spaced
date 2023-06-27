@@ -30,7 +30,7 @@ const Map = ({
                     ${isListenCellHighlighted && isPlayer1Visible ? 'cell-listen-highlighted' : ''
                     }`;
 
-                    const cellID = i * 4 + j + 1
+                    const cellID = j * 4 + i + 1
                 
                 row.push(
                     <Cell

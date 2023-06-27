@@ -18,7 +18,8 @@ const GameScreen = ({player1, player2}) => {
     const [currentPlayer, setCurrentPlayer] = useState('player1');
     const [isMoveButtonClicked, setIsMoveButtonClicked] = useState(false);
     const [isListenCellHighlighted, setIsListenCellHighlighted] = useState(false);
-    const [isKnifeButtonClicked, setIsKnifeButtonClicked] = useState(false)
+    const [isKnifeButtonClicked, setIsKnifeButtonClicked] = useState(false);
+    const [isShootButtonClicked, setIsShootButtonClicked] = useState(false);
 
     const currentPlayerName = currentPlayer === 'player1' ? 'Player 1' : 'Player 2';
 
@@ -61,10 +62,20 @@ const GameScreen = ({player1, player2}) => {
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
     }
 
+    const handleShootClick = () => {
+        setIsShootButtonClicked(true);
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
+        const rowCells = getRowCells(currentPlayerPosition.x);
+        const columnCells = getColumnCells(currentPlayerPosition.y);
+        setHighlightedCells([...rowCells, ...columnCells])
+    }
+
     const handleCellClick = (position) => {
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
-        if (!isMoveButtonClicked && !isKnifeButtonClicked) {
+        
+        if (!isMoveButtonClicked && !isKnifeButtonClicked && !isShootButtonClicked) {
             return;
         } 
         
@@ -100,6 +111,29 @@ const GameScreen = ({player1, player2}) => {
                 return;
             }
         }
+
+        if (isShootButtonClicked) {
+            if (isCellHighlighted(position)) {
+                if (currentPlayer === 'player1') {
+                    if (opposingPlayerPosition.x === position.x) {
+                        setPlayer2Health(player2Health - 1);
+                    } else if (opposingPlayerPosition.y === position.y) {
+                        setPlayer2Health(player2Health - 1);
+                    }
+                    setPlayer1AP(player1AP - 2);
+                } else {
+                    if (opposingPlayerPosition.x === position.x) {
+                        setPlayer1Health(player1Health - 1);
+                    } else if (opposingPlayerPosition.y === position.y) {
+                        setPlayer1Health(player1Health - 1);
+                    }
+                    setPlayer2AP(player2AP - 2);
+                }
+                setHighlightedCells([]);
+                setIsShootButtonClicked(false);
+                return;
+            }
+        }
     };
 
     const handleSkip = () => {
@@ -131,6 +165,28 @@ const GameScreen = ({player1, player2}) => {
             .filter(({ x, y }) => isValidCell(x, y));
 
         return adjacentCells;
+    };
+
+    const getRowCells = (rowIndex) => {
+        const cells = [];
+        for (let y = 0; y < 4; y++) {
+            if (y !== rowIndex) {
+                // cells.push({ x: y, y: rowIndex });
+                cells.push({ x: rowIndex, y });
+            }
+        }
+        return cells;
+    };
+
+    const getColumnCells = (columnIndex) => {
+        const cells = [];
+        for (let x = 0; x < 4; x++) {
+            if (x !== columnIndex) {
+                // cells.push({ x: columnIndex, y: x });
+                cells.push({ x, y: columnIndex });
+            }
+        }
+        return cells;
     };
 
     const isValidCell = (x, y) => {
@@ -169,6 +225,7 @@ const GameScreen = ({player1, player2}) => {
                     handleMoveButtonClick={handleMoveButtonClick}
                     onListenClick={handleListenClick}
                     handleKnifeClick={handleKnifeClick}
+                    handleShootClick={handleShootClick}
                     onSkip={handleSkip}
                     onMove={onMove}
                     player1AP={player1AP}

@@ -23,6 +23,7 @@ const PlayerReference = ({
     handleMoveButtonClick, 
     onListenClick, 
     handleKnifeClick, 
+    handleShootClick, 
 }) => {
 
     return (
@@ -44,11 +45,11 @@ const PlayerReference = ({
                     <button className="reference__button" onClick={handleKnifeClick} disabled={player1AP < 2 || player2AP < 2}>Knife - 2 AP</button>
                 </div>
                 <div className="reference__row">
-                    <button className="reference__button" disabled={player1AP < 2 || player2AP < 2}>Shoot - 2 AP</button>
+                    <button className="reference__button" onClick={handleShootClick} disabled={player1AP < 2 || player2AP < 2}>Shoot - 2 AP</button>
                 </div>
             </div>
             <div className="skip">
-                <button onClick={onSkip}>Next</button>
+                <button onClick={onSkip}>Next Turn</button>
             </div>
         </div>
     );
