@@ -30,7 +30,7 @@ const Map = ({
                     ${isListenCellHighlighted && isPlayer1Visible ? 'cell-listen-highlighted' : ''
                     }`;
 
-                    const cellID = j * 4 + i + 1
+                const cellID = j * 4 + i + 1
                 
                 row.push(
                     <Cell
@@ -39,7 +39,7 @@ const Map = ({
                         isPlayer2={isPlayer2Visible}
                         isHighlighted={isCellHighlighted}
                         key={`${i}-${j}`}
-                        onClick={() => onCellClick({ x: i, y: j })}
+                        onClick={() => onCellClick({ x: i, y: j }, cellID)}
                     />
                 );
             }

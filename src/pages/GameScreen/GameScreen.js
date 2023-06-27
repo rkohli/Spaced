@@ -33,7 +33,6 @@ const GameScreen = ({player1, player2}) => {
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
-        addActionToLog('Move');
     };
 
     const handleListenClick = () => {
@@ -67,7 +66,6 @@ const GameScreen = ({player1, player2}) => {
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
-        addActionToLog('Knife');
     }
 
     const handleShootClick = () => {
@@ -77,10 +75,9 @@ const GameScreen = ({player1, player2}) => {
         const rowCells = getRowCells(currentPlayerPosition.x).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         const columnCells = getColumnCells(currentPlayerPosition.y).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         setHighlightedCells([...rowCells, ...columnCells])
-        addActionToLog('Shoot');
     }
 
-    const handleCellClick = (position) => {
+    const handleCellClick = (position, cellID) => {
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         
@@ -88,6 +85,22 @@ const GameScreen = ({player1, player2}) => {
             return;
         } 
         
+        if (isMoveButtonClicked) {
+            if (isCellHighlighted(position)) {
+                if (currentPlayer === 'player1') {
+                    setPlayer1Position(position);
+                    setPlayer1AP(player1AP - 1);
+                } else {
+                    setPlayer2Position(position);
+                    setPlayer2AP(player2AP - 1);
+                }
+                setHighlightedCells([]);
+                setIsMoveButtonClicked(false);
+                addActionToLog('Move');
+                return;
+            }
+        }
+
         if (isKnifeButtonClicked) {
             if (isCellHighlighted(position)) {
                 if (currentPlayer === 'player1') {
@@ -103,20 +116,7 @@ const GameScreen = ({player1, player2}) => {
                 }
                 setHighlightedCells([]);
                 setIsKnifeButtonClicked(false);
-                return;
-            }
-        }
-        if (isMoveButtonClicked) {
-            if (isCellHighlighted(position)) {
-                if (currentPlayer === 'player1') {
-                    setPlayer1Position(position);
-                    setPlayer1AP(player1AP - 1);
-                } else {
-                    setPlayer2Position(position);
-                    setPlayer2AP(player2AP - 1);
-                }
-                setHighlightedCells([]);
-                setIsMoveButtonClicked(false);
+                addActionToLog('Knife');
                 return;
             }
         }
@@ -140,6 +140,7 @@ const GameScreen = ({player1, player2}) => {
                 }
                 setHighlightedCells([]);
                 setIsShootButtonClicked(false);
+                addActionToLog('Shoot', cellID);
                 return;
             }
         }
@@ -184,10 +185,7 @@ const GameScreen = ({player1, player2}) => {
     const getRowCells = (rowIndex) => {
         const cells = [];
         for (let y = 0; y < 4; y++) {
-            if (y !== rowIndex) {
-                // cells.push({ x: y, y: rowIndex });
-                cells.push({ x: rowIndex, y });
-            }
+            cells.push({ x: rowIndex, y });
         }
         return cells;
     };
@@ -195,10 +193,7 @@ const GameScreen = ({player1, player2}) => {
     const getColumnCells = (columnIndex) => {
         const cells = [];
         for (let x = 0; x < 4; x++) {
-            if (x !== columnIndex) {
-                // cells.push({ x: columnIndex, y: x });
-                cells.push({ x, y: columnIndex });
-            }
+            cells.push({ x, y: columnIndex });
         }
         return cells;
     };
@@ -207,7 +202,7 @@ const GameScreen = ({player1, player2}) => {
         return x >= 0 && x < 4 && y >= 0 && y < 4;
     };
 
-    const addActionToLog = (action) => {
+    const addActionToLog = (action, cellID) => {
         let actionMessage;
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
 
@@ -222,7 +217,8 @@ const GameScreen = ({player1, player2}) => {
                 actionMessage = `${currentPlayerName} knifed for 2 AP`;
                 break;
             case 'Shoot':
-                actionMessage = `${currentPlayerName} shot from ${currentPlayerPosition.id} for 2 AP`;
+                const currentPlayerCellID = currentPlayerPosition.y * 4 + currentPlayerPosition.x + 1
+                actionMessage = `${currentPlayerName} shot from ${currentPlayerCellID} for 2 AP`;
                 break;
             default:
                 actionMessage = '';
@@ -286,6 +282,8 @@ const GameScreen = ({player1, player2}) => {
                     isValidCell={isValidCell}
                     />
                 <ActionLog 
+                    player1={player1}
+                    player2={player2}
                     actionLog={actionLog} />
             </footer>
         </div>

@@ -1,6 +1,6 @@
 import './ActionLog.scss';
 
-const ActionLog = ({ actionLog }) => {
+const ActionLog = ({ player1, player2, actionLog }) => {
     const reversedActionLog = [...actionLog].reverse();
 
     return (
