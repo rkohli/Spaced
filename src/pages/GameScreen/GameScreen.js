@@ -10,22 +10,24 @@ import { useState } from 'react';
 const GameScreen = ({player1, player2}) => {
     const [player1Health, setPlayer1Health] = useState(2)
     const [player2Health, setPlayer2Health] = useState(2)
-    const [player1AP, setPlayer1AP] = useState(2)
-    const [player2AP, setPlayer2AP] = useState(2)
+    const [player1AP, setPlayer1AP] = useState(3)
+    const [player2AP, setPlayer2AP] = useState(3)
     const [player1Position, setPlayer1Position] = useState({ x: 0, y: 0 });
     const [player2Position, setPlayer2Position] = useState({ x: 3, y: 3 });
     const [highlightedCells, setHighlightedCells] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState('player1');
     const [isMoveButtonClicked, setIsMoveButtonClicked] = useState(false);
     const [isListenCellHighlighted, setIsListenCellHighlighted] = useState(false);
+    const [isKnifeButtonClicked, setIsKnifeButtonClicked] = useState(false)
 
     const currentPlayerName = currentPlayer === 'player1' ? 'Player 1' : 'Player 2';
 
     const handleMoveButtonClick = () => {
         setIsMoveButtonClicked(true);
+        setIsKnifeButtonClicked(false);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
-        setHighlightedCells(adjacentCells);
+        setHighlightedCells([...adjacentCells, currentPlayerPosition]);
     };
 
     const handleListenClick = () => {
@@ -44,20 +46,59 @@ const GameScreen = ({player1, player2}) => {
         setHighlightedCells(listenCells);
         setIsMoveButtonClicked(false);
         setIsListenCellHighlighted(true);
+        if (currentPlayer === 'player1') {
+            setPlayer1AP(player1AP - 1);
+        } else {
+            setPlayer2AP(player2AP - 1);
+        }
     };
 
+    const handleKnifeClick = () => {
+        setIsKnifeButtonClicked(true);
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
+        const adjacentCells = getAdjacentCells(currentPlayerPosition);
+        setHighlightedCells([...adjacentCells, currentPlayerPosition]);
+    }
+
     const handleCellClick = (position) => {
-        if (!isMoveButtonClicked) {
+        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
+        const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
+        if (!isMoveButtonClicked && !isKnifeButtonClicked) {
             return;
         } 
-        if (isCellHighlighted(position)) {
-            if (currentPlayer === 'player1') {
-                setPlayer1Position(position);
-            } else {
-                setPlayer2Position(position);
+        
+        if (isKnifeButtonClicked) {
+            if (isCellHighlighted(position)) {
+                if (currentPlayer === 'player1') {
+                    if (opposingPlayerPosition.x === position.x && opposingPlayerPosition.y === position.y) {
+                        setPlayer2Health(player2Health - 1);
+                    }
+                    setPlayer1AP(player1AP - 2);
+                } else {
+                    if (opposingPlayerPosition.x === position.x && opposingPlayerPosition.y === position.y) {
+                        setPlayer1Health(player1Health - 1);
+                    }
+                    setPlayer2AP(player2AP - 2);
+                }
+                setHighlightedCells([]);
+                setIsKnifeButtonClicked(false);
+                return;
             }
-            setHighlightedCells([]);
-            setIsMoveButtonClicked(false);
+        }
+        if (isMoveButtonClicked) {
+            if (isCellHighlighted(position)) {
+                if (currentPlayer === 'player1') {
+                    setPlayer1Position(position);
+                    setPlayer1AP(player1AP - 1);
+                } else {
+                    setPlayer2Position(position);
+                    setPlayer2AP(player2AP - 1);
+                }
+                setHighlightedCells([]);
+                setIsMoveButtonClicked(false);
+                return;
+            }
         }
     };
 
@@ -65,6 +106,8 @@ const GameScreen = ({player1, player2}) => {
         setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
         setHighlightedCells([]);
         setIsListenCellHighlighted(false);
+        setPlayer1AP(3);
+        setPlayer2AP(3);
     };
 
     const onMove = (adjacentCells) => {
@@ -125,6 +168,7 @@ const GameScreen = ({player1, player2}) => {
                     onCellClick={handleCellClick}
                     handleMoveButtonClick={handleMoveButtonClick}
                     onListenClick={handleListenClick}
+                    handleKnifeClick={handleKnifeClick}
                     onSkip={handleSkip}
                     onMove={onMove}
                     player1AP={player1AP}

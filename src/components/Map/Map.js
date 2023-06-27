@@ -29,9 +29,12 @@ const Map = ({
                     ${isCellHighlighted ? 'cell-highlighted' : ''} 
                     ${isListenCellHighlighted && isPlayer1Visible ? 'cell-listen-highlighted' : ''
                     }`;
+
+                    const cellID = i * 4 + j + 1
                 
                 row.push(
                     <Cell
+                        id={cellID}
                         isPlayer1={isPlayer1Visible}
                         isPlayer2={isPlayer2Visible}
                         isHighlighted={isCellHighlighted}

@@ -1,7 +1,7 @@
 import "./Cell.scss"
 import React from "react"
 
-const Cell = ({ isPlayer1, isPlayer2, isHighlighted, onClick }) => {
+const Cell = ({ id, isPlayer1, isPlayer2, isHighlighted, onClick }) => {
     let cellClassName = `cell ${isPlayer1 ? 'cell-player1' : ''} ${isPlayer2 ? 'cell-player2' : ''} ${isHighlighted ? 'cell-highlighted' : ''}`;
     
     if (isPlayer1) {
@@ -11,7 +11,9 @@ const Cell = ({ isPlayer1, isPlayer2, isHighlighted, onClick }) => {
     }
 
     return (
-        <div className={cellClassName} onClick={onClick} />
+        <div className={cellClassName} onClick={onClick}>
+            <span className="cell-id">{id}</span>
+        </div>
     );
 };
 

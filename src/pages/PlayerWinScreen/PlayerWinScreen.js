@@ -5,7 +5,7 @@ import Leaderboard from '../../components/Leaderboard/Leaderboard';
 const PlayerWinScreen = () => {
     return (
         <div>
-            <h3>Player 1 wins!</h3>
+            <h3>Player wins!</h3>
             <Leaderboard />
         </div>
     )
