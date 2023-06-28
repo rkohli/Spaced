@@ -1,22 +1,37 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/mixins" as *;
+
 .cell {
-    width: 50px;
-    height: 50px;
+    width: 4rem;
+    height: 4rem;
     border: 1px solid black;
-    background-color: gray;
-}
+    background-color: #1d1d1d;
 
-.cell-player1 {
-    background-color: blue;
-}
+    &-player1 {
+        background-color: #ff4c4c;
+        color: black;
+    }
 
-.cell-player2 {
-    background-color: blue;
-}
+    &-player2 {
+    background-color: #ff4c4c;
+    color: black;
+    }
 
-.cell-highlighted {
-    background-color: yellow;
-}
+    &-highlighted {
+        background-color: #f9f871;
+        color: black;
+    }
 
-.cell-listen-highlighted {
-    background-color: orange;
+    .cell-id {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    @include desktop {
+        width: 6rem;
+        height: 6rem;
+    }
 }

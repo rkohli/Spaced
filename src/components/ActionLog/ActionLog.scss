@@ -1,0 +1,40 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/mixins" as *;
+
+.action-log {
+    background-color: #1d1d1d;
+    padding: 1rem;
+    padding-top: 0;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    max-height: 30rem;
+    width: 13rem;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+
+    &__header {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
+
+        &--title {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+    }
+
+    &__list {
+        padding: 0;
+        margin: 0;
+
+        &--item {
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            margin-left: 1rem;
+            padding-left: .2rem;
+        }
+    }
+}

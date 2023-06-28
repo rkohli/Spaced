@@ -11,9 +11,9 @@ const PlayerWinScreen = () => {
     };
 
     return (
-        <div>
-            <h3>{player} wins!</h3>
-            <button onClick={handleRestartClick}>Restart</button>
+        <div className='win-screen'>
+            <h3 className='win-screen__text'>{player} wins!</h3>
+            <button className='restart-button' onClick={handleRestartClick}>Restart</button>
         </div>
     )
 }

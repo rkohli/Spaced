@@ -1,0 +1,16 @@
+@use "./styles/variables" as *;
+@use "./styles/typography" as *;
+@use "./styles/mixins" as *;
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    font-family:  "Arcade", sans-serif;
+}
+
+body {
+    margin: 0;
+}

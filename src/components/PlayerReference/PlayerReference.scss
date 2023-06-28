@@ -1,0 +1,90 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/mixins" as *;
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1d1d1d;
+    padding: 1rem;
+    padding-top: 0;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    width: 13rem;
+    margin-bottom: 2rem;
+}
+
+.reference {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.6rem;
+
+    &__header {
+        text-align: center;
+        
+        &--text {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    }
+
+    &__row {
+        margin-bottom: 0.8rem;
+    }
+
+    &__label {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 0.4rem;
+    }
+
+    &__button {
+        display: block;
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: #f44336;
+        }
+    }
+}
+
+.skip {
+    display: flex;
+    align-items: flex-end;
+    margin-top: auto;
+
+    button {
+        padding: 0.6rem 1.2rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #2d6f30;
+        }
+    }
+}

@@ -33,7 +33,8 @@ const Home = ({ setPlayer1, setPlayer2 }) => {
                             type="text" 
                             value={username1} 
                             onChange={(e) => setUsername1(e.target.value)} 
-                            placeholder="Enter name here" 
+                            placeholder="Enter name here"
+                            required 
                         />
                     </div>
                     <div className="name__form--player">
@@ -48,6 +49,7 @@ const Home = ({ setPlayer1, setPlayer2 }) => {
                             value={username2}
                             onChange={(e) => setUsername2(e.target.value)}
                             placeholder="Enter name here" 
+                            required
                         />
                     </div>
                     <button className='name__form--button' type='submit'>Start Game</button>

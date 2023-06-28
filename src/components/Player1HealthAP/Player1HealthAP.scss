@@ -1,0 +1,45 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/mixins" as *;
+
+.player__info {
+    background-color: #1d1d1d;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    padding-top: 0;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+    font-family: 'Arial', sans-serif;
+
+    &--top {
+        margin-bottom: 1.2rem;
+    }
+
+    &--name {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.8rem;
+    }
+
+    &--health, &--ap {
+        font-size: 1.6rem;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            margin-right: 0.6rem;
+        }
+    }
+
+    &--health::before {
+        background-color: #f44336;
+    }
+
+    &--ap::before {
+        background-color: #4caf50;
+    }
+}

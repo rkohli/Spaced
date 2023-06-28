@@ -175,6 +175,10 @@ const GameScreen = ({player1, player2}) => {
     };
 
     const handleSkip = () => {
+        setIsMoveButtonClicked(false);
+        setIsKnifeButtonClicked(false);
+        setIsShootButtonClicked(false);
+        setHighlightedCells([]);
         setShowSwitchPlayer(true);
     };
 
@@ -247,7 +251,7 @@ const GameScreen = ({player1, player2}) => {
                 break;
             case 'Shoot':
                 const currentPlayerCellID = currentPlayerPosition.y * 4 + currentPlayerPosition.x + 1
-                actionMessage = `${currentPlayerName} shot from ${currentPlayerCellID} for 2 AP`;
+                actionMessage = `${currentPlayerName} shot from Room ${currentPlayerCellID} for 2 AP`;
                 break;
             default:
                 actionMessage = '';
@@ -259,11 +263,12 @@ const GameScreen = ({player1, player2}) => {
 
     return (
         <div className='gamescreen'>
-            <header className='header'>
+            <header className='gamescreen__header'>
                 <Player1HealthAP 
                     player1Health={player1Health} 
                     player1AP={player1AP}
                     player1={player1} />
+                <h2 className='gamescreen__header--title'>Spaced!</h2>
                 <Player2HealthAP 
                     player2Health={player2Health}
                     player2AP={player2AP}
@@ -276,18 +281,7 @@ const GameScreen = ({player1, player2}) => {
                     onNext={handleNext}
                 />
             )}
-            <div className='map'>
-                <Map 
-                    player1Position={player1Position} 
-                    player2Position={player2Position}
-                    currentPlayer={currentPlayer}
-                    highlightedCells={highlightedCells}
-                    isHighlighted={isCellHighlighted}
-                    isListenCellHighlighted={isListenCellHighlighted}
-                    onCellClick={handleCellClick} 
-                />
-            </div>
-            <footer className='footer'>
+            <footer className='gamescreen__footer'>
                 <PlayerReference 
                     currentPlayer={currentPlayer}
                     currentPlayerName={currentPlayerName}
@@ -310,6 +304,17 @@ const GameScreen = ({player1, player2}) => {
                     getAdjacentCells={getAdjacentCells}
                     isValidCell={isValidCell}
                     />
+                <div className='gamescreen__map'>
+                    <Map 
+                        player1Position={player1Position} 
+                        player2Position={player2Position}
+                        currentPlayer={currentPlayer}
+                        highlightedCells={highlightedCells}
+                        isHighlighted={isCellHighlighted}
+                        isListenCellHighlighted={isListenCellHighlighted}
+                        onCellClick={handleCellClick} 
+                    />
+                </div>
                 <ActionLog 
                     player1={player1}
                     player2={player2}
