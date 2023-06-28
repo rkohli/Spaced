@@ -55,7 +55,7 @@
         border: none;
         border-radius: 0.4rem;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.5s ease;
 
         &:disabled {
             background-color: #888;
@@ -82,7 +82,7 @@
         border: none;
         border-radius: 0.4rem;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.5s ease;
 
         &:hover {
             background-color: #2d6f30;
