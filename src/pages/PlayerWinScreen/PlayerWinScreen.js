@@ -1,12 +1,19 @@
+import { useState } from 'react';
 import './PlayerWinScreen.scss'
-
-import Leaderboard from '../../components/Leaderboard/Leaderboard';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PlayerWinScreen = () => {
+    const { player } = useParams();
+    const navigate = useNavigate();
+
+    const handleRestartClick = () => {
+        navigate('/');
+    };
+
     return (
         <div>
-            <h3>Player wins!</h3>
-            <Leaderboard />
+            <h3>{player} wins!</h3>
+            <button onClick={handleRestartClick}>Restart</button>
         </div>
     )
 }

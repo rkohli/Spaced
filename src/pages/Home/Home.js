@@ -1,7 +1,6 @@
 import './Home.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Leaderboard from "../../components/Leaderboard/Leaderboard";
 
 const Home = ({ setPlayer1, setPlayer2 }) => {
     const navigate = useNavigate();
@@ -53,9 +52,6 @@ const Home = ({ setPlayer1, setPlayer2 }) => {
                     </div>
                     <button className='name__form--button' type='submit'>Start Game</button>
                 </form>
-            </div>
-            <div>
-                <Leaderboard />
             </div>
         </div>
     )

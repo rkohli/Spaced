@@ -21,8 +21,9 @@ const App = () => {
                     element={<GameScreen player1={player1} player2={player2}/>} 
                 />
                 <Route 
-                    path="/winner" 
-                    element={<PlayerWinScreen />} 
+                    path="/winner/:player" 
+                    element={<PlayerWinScreen />}
+                    // render={({ match }) => <PlayerWinScreen player={match.params.player} />} 
                 />
             </Routes>
         </BrowserRouter>

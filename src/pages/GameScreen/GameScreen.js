@@ -5,8 +5,9 @@ import Player2HealthAP from '../../components/Player2HealthAP/Player2HealthAP';
 import Map from '../../components/Map/Map';
 import PlayerReference from '../../components/PlayerReference/PlayerReference';
 import ActionLog from '../../components/ActionLog/ActionLog';
-import { useState } from 'react';
 import SwitchPlayer from '../../components/SwitchPlayer/SwitchPlayer';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
 const GameScreen = ({player1, player2}) => {
     const [player1Health, setPlayer1Health] = useState(2)
@@ -26,13 +27,16 @@ const GameScreen = ({player1, player2}) => {
 
     const currentPlayerName = currentPlayer === 'player1' ? `${player1}` : `${player2}`;
     const opposingPlayerName = currentPlayer === 'player1' ? `${player2}` : `${player1}`;
+    const navigate = useNavigate();
 
     const handleMoveButtonClick = () => {
         setIsMoveButtonClicked(true);
         setIsKnifeButtonClicked(false);
+        setIsShootButtonClicked(false);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
+        setShowSwitchPlayer(false);
     };
 
     const handleListenClick = () => {
@@ -57,24 +61,32 @@ const GameScreen = ({player1, player2}) => {
             setPlayer2AP(player2AP - 1);
         }
 
+        setShowSwitchPlayer(false);
         addActionToLog('Listen');
     };
 
     const handleKnifeClick = () => {
         setIsKnifeButtonClicked(true);
+        setIsMoveButtonClicked(false);
+        setIsShootButtonClicked(false);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
+        setShowSwitchPlayer(false);
+
     }
 
     const handleShootClick = () => {
         setIsShootButtonClicked(true);
+        setIsKnifeButtonClicked(false);
+        setIsMoveButtonClicked(false);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const rowCells = getRowCells(currentPlayerPosition.x).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         const columnCells = getColumnCells(currentPlayerPosition.y).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         setHighlightedCells([...rowCells, ...columnCells])
+        setShowSwitchPlayer(false);
     }
 
     const handleCellClick = (position, cellID) => {
@@ -106,11 +118,19 @@ const GameScreen = ({player1, player2}) => {
                 if (currentPlayer === 'player1') {
                     if (opposingPlayerPosition.x === position.x && opposingPlayerPosition.y === position.y) {
                         setPlayer2Health(player2Health - 1);
+                        if (player2Health - 1 === 0) {
+                            navigate(`/winner/${player1}`);
+                            return;
+                        }
                     }
                     setPlayer1AP(player1AP - 2);
                 } else {
                     if (opposingPlayerPosition.x === position.x && opposingPlayerPosition.y === position.y) {
                         setPlayer1Health(player1Health - 1);
+                        if (player1Health - 1 === 0) {
+                            navigate(`/winner/${player2}`);
+                            return;
+                        }
                     }
                     setPlayer2AP(player2AP - 2);
                 }
@@ -130,6 +150,10 @@ const GameScreen = ({player1, player2}) => {
                         setPlayer2Health(player2Health - 1);
                     }
                     setPlayer1AP(player1AP - 2);
+                    if (player2Health - 1 === 0) {
+                        navigate(`/winner/${player1}`);
+                        return;
+                    }
                 } else {
                     if (opposingPlayerPosition.x === position.x) {
                         setPlayer1Health(player1Health - 1);
@@ -137,6 +161,10 @@ const GameScreen = ({player1, player2}) => {
                         setPlayer1Health(player1Health - 1);
                     }
                     setPlayer2AP(player2AP - 2);
+                    if (player1Health - 1 === 0) {
+                        navigate(`/winner/${player2}`);
+                        return;
+                    }
                 }
                 setHighlightedCells([]);
                 setIsShootButtonClicked(false);
@@ -164,8 +192,9 @@ const GameScreen = ({player1, player2}) => {
         setIsListenCellHighlighted(false);
     };
 
-    const isCellHighlighted = (position) => 
-    highlightedCells.some((cell) => cell.x === position.x && cell.y === position.y);
+    const isCellHighlighted = (position) => {
+       return highlightedCells.some(
+        (cell) => cell.x === position.x && cell.y === position.y)};
 
     const getAdjacentCells = ({ x, y }) => {
         const directions = [
