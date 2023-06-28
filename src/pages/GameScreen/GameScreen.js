@@ -14,20 +14,28 @@ const GameScreen = ({player1, player2}) => {
     const [player2Health, setPlayer2Health] = useState(2)
     const [player1AP, setPlayer1AP] = useState(3)
     const [player2AP, setPlayer2AP] = useState(3)
-    const [player1Position, setPlayer1Position] = useState({ x: 0, y: 0 });
-    const [player2Position, setPlayer2Position] = useState({ x: 3, y: 3 });
+    // const [player1Position, setPlayer1Position] = useState({ x: 0, y: 0 });
+    // const [player2Position, setPlayer2Position] = useState({ x: 3, y: 3 });
     const [highlightedCells, setHighlightedCells] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState('player1');
     const [isMoveButtonClicked, setIsMoveButtonClicked] = useState(false);
     const [isListenCellHighlighted, setIsListenCellHighlighted] = useState(false);
     const [isKnifeButtonClicked, setIsKnifeButtonClicked] = useState(false);
     const [isShootButtonClicked, setIsShootButtonClicked] = useState(false);
-    const [showSwitchPlayer, setShowSwitchPlayer] = useState(false);
+    const [showSwitchPlayer, setShowSwitchPlayer] = useState(true);
     const [actionLog, setActionLog] = useState([]);
 
     const currentPlayerName = currentPlayer === 'player1' ? `${player1}` : `${player2}`;
     const opposingPlayerName = currentPlayer === 'player1' ? `${player2}` : `${player1}`;
     const navigate = useNavigate();
+
+    const getRandomPositon = () => {
+        const randomX = Math.floor(Math.random() * 4);
+        const randomY = Math.floor(Math.random() * 4);
+        return { x: randomX, y: randomY };
+    }
+    const [player1Position, setPlayer1Position] = useState(getRandomPositon());
+    const [player2Position, setPlayer2Position] = useState(getRandomPositon());
 
     const handleMoveButtonClick = () => {
         setIsMoveButtonClicked(true);
@@ -313,6 +321,7 @@ const GameScreen = ({player1, player2}) => {
                         isHighlighted={isCellHighlighted}
                         isListenCellHighlighted={isListenCellHighlighted}
                         onCellClick={handleCellClick} 
+                        currentPlayerName={currentPlayerName}
                     />
                 </div>
                 <ActionLog 

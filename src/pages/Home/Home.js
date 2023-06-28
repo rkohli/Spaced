@@ -52,7 +52,7 @@ const Home = ({ setPlayer1, setPlayer2 }) => {
                             required
                         />
                     </div>
-                    <button className='name__form--button' type='submit'>Start Game</button>
+                    <button className='name__form--button' type='submit'>Start</button>
                 </form>
             </div>
         </div>

@@ -30,10 +30,7 @@ const PlayerReference = ({
         <div className="actions">
             <div className="reference">
                 <div className='reference__header'>
-                    <h2 className='reference__header--text'>{currentPlayerName}'s Turn</h2>
-                </div>
-                <div className="reference__row">
-                    <h3 className="reference__label">Action - Cost</h3>
+                    <h2 className='reference__header--text'>Action-Cost</h2>
                 </div>
                 <div className="reference__row">
                     <button className="reference__button" onClick={handleMoveButtonClick} disabled={player1AP === 0 || player2AP === 0}>Move - 1 AP</button>

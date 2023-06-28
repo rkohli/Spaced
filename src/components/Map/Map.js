@@ -10,6 +10,7 @@ const Map = ({
     highlightedCells, 
     isHighlighted, 
     isListenCellHighlighted, 
+    currentPlayerName, 
 }) => {
     const renderMap = () => {
         const map = [];
@@ -49,8 +50,11 @@ const Map = ({
     };
 
     return (
-        <div className='map'>
-            {renderMap()}
+        <div className='map__div'>
+            <h3 className='turn-text'>{currentPlayerName}'s Turn</h3>
+            <div className='map'>
+                {renderMap()}
+            </div>
         </div>
     );
 };

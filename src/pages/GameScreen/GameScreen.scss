@@ -21,10 +21,10 @@
         padding: 1rem;
 
         &--title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: bold;
             align-self: center;
-            margin-top: -1rem;
+            font-family: "Arcade";
         }
     }
 
@@ -33,7 +33,7 @@
         align-items: center;
         justify-content: center;
         flex: 1;
-
+        font-family: "Arcade";
     }
 
     &__footer {

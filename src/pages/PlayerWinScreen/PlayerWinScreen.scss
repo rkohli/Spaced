@@ -1,3 +1,7 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography" as *;
+@use "../../styles/mixins" as *;
+
 .win-screen {
     display: flex;
     flex-direction: column;
@@ -6,10 +10,11 @@
     height: 100vh;
     margin: -1rem;
     background-color: #1d1d1d;
+    font-family: "Arcade";
     
     &__text {
     font-size: 6rem;
-    color: #4caf50;
+    color: #fff;
     margin-bottom: 6rem;
     margin-top: -6rem;
     }
@@ -20,6 +25,7 @@
     font-size: 1.2rem;
     background-color: #f44336;
     color: #fff;
+    font-family: "Arcade";
     border: none;
     border-radius: 4px;
     cursor: pointer;

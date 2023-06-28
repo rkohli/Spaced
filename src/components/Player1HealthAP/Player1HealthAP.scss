@@ -10,7 +10,7 @@
     color: #fff;
     text-align: center;
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
-    font-family: 'Arial', sans-serif;
+    font-family: "Arcade", 'Arial', sans-serif;
 
     &--top {
         margin-bottom: 1.2rem;
@@ -23,7 +23,7 @@
     }
 
     &--health, &--ap {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
 
         &::before {
             content: '';
