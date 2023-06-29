@@ -1,5 +1,4 @@
 import './Map.scss';
-import { useState } from 'react';
 import Cell from '../Cell/Cell';
 
 const Map = ({ 
@@ -24,12 +23,12 @@ const Map = ({
 
                 const isCellHighlighted = highlightedCells.some((cell) => cell.x === i && cell.y === j);
 
-                let cellClassName = `cell ${
-                    isPlayer1Visible ? 'cell-player1' : ''} 
-                    ${isPlayer2Visible ? 'cell-player2' : ''} 
-                    ${isCellHighlighted ? 'cell-highlighted' : ''} 
-                    ${isListenCellHighlighted && isPlayer1Visible ? 'cell-listen-highlighted' : ''
-                    }`;
+                // let cellClassName = `cell ${
+                //     isPlayer1Visible ? 'cell-player1' : ''} 
+                //     ${isPlayer2Visible ? 'cell-player2' : ''} 
+                //     ${isCellHighlighted ? 'cell-highlighted' : ''} 
+                //     ${isListenCellHighlighted && isPlayer1Visible ? 'cell-listen-highlighted' : ''
+                //     }`;
 
                 const cellID = j * 4 + i + 1
                 

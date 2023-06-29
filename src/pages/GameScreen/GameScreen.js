@@ -48,7 +48,6 @@ const GameScreen = ({player1, player2}) => {
     };
 
     const handleListenClick = () => {
-        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const quadrantX = opposingPlayerPosition.x < 2 ? 0 : 2;
         const quadrantY = opposingPlayerPosition.y < 2 ? 0 : 2;
@@ -78,7 +77,6 @@ const GameScreen = ({player1, player2}) => {
         setIsMoveButtonClicked(false);
         setIsShootButtonClicked(false);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
-        const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const adjacentCells = getAdjacentCells(currentPlayerPosition);
         setHighlightedCells([...adjacentCells, currentPlayerPosition]);
         setShowSwitchPlayer(false);
@@ -90,7 +88,6 @@ const GameScreen = ({player1, player2}) => {
         setIsKnifeButtonClicked(false);
         setIsMoveButtonClicked(false);
         const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
-        const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         const rowCells = getRowCells(currentPlayerPosition.x).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         const columnCells = getColumnCells(currentPlayerPosition.y).filter(cell => !(cell.x === currentPlayerPosition.x && cell.y === currentPlayerPosition.y));
         setHighlightedCells([...rowCells, ...columnCells])
@@ -98,7 +95,6 @@ const GameScreen = ({player1, player2}) => {
     }
 
     const handleCellClick = (position, cellID) => {
-        const currentPlayerPosition = currentPlayer === 'player1' ? player1Position : player2Position;
         const opposingPlayerPosition = currentPlayer === 'player1' ? player2Position : player1Position;
         
         if (!isMoveButtonClicked && !isKnifeButtonClicked && !isShootButtonClicked) {
