@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './PlayerReference.scss';
 
 const PlayerReference = ({ 
