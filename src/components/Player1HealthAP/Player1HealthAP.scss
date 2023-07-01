@@ -22,17 +22,18 @@
     }
 
     &--name {
-        font-size: .9rem;
+        font-size: .8rem;
         font-weight: bold;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.2rem;
         
         @include desktop{
             font-size: 2rem;
+            margin-bottom: 0.8rem;
         }
     }
 
     &--health, &--ap {
-        font-size: .6rem;
+        font-size: .5rem;
 
         @include desktop{
             font-size: 1.2rem;
