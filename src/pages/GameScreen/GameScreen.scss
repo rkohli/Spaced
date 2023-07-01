@@ -27,14 +27,14 @@
             }
             
             &--title {
-                padding-left: 2rem;
-                font-size: 2.4rem;
+                padding-left: .7rem;
+                font-size: 1rem;
                 font-weight: bold;
                 align-self: center;
                 font-family: "Arcade";
-                display: none;
 
                 @include desktop{
+                    padding-left: 2rem;
                     font-size: 3.5rem;
                     display: block;
                 }
@@ -69,7 +69,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            width: 95%;
+            width: 90%;
             padding: 1rem;
 
             @include desktop {
