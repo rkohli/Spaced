@@ -278,6 +278,19 @@ const GameScreen = ({player1, player2}) => {
                     player2AP={player2AP}
                     player2={player2} />
             </header>
+
+            <div className='gamescreen__map--mobile'>
+                    <Map 
+                        player1Position={player1Position} 
+                        player2Position={player2Position}
+                        currentPlayer={currentPlayer}
+                        highlightedCells={highlightedCells}
+                        isHighlighted={isCellHighlighted}
+                        isListenCellHighlighted={isListenCellHighlighted}
+                        onCellClick={handleCellClick} 
+                        currentPlayerName={currentPlayerName}
+                    />
+            </div>
             {showSwitchPlayer && (
                 <SwitchPlayer 
                     opposingPlayerName={opposingPlayerName}

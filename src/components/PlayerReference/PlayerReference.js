@@ -31,17 +31,21 @@ const PlayerReference = ({
                 <div className='reference__header'>
                     <h2 className='reference__header--text'>Action-Cost</h2>
                 </div>
-                <div className="reference__row">
-                    <button className="reference__button" onClick={handleMoveButtonClick} disabled={player1AP === 0 || player2AP === 0}>Move - 1 AP</button>
+                <div className='reference__column'>
+                    <div className="reference__row">
+                        <button className="reference__button" onClick={handleMoveButtonClick} disabled={player1AP === 0 || player2AP === 0}>Move - 1 AP</button>
+                    </div>
+                    <div className="reference__row">
+                        <button className="reference__button" onClick={onListenClick} disabled={player1AP === 0 || player2AP === 0}>Listen - 1 AP</button>
+                    </div>
                 </div>
-                <div className="reference__row">
-                    <button className="reference__button" onClick={onListenClick} disabled={player1AP === 0 || player2AP === 0}>Listen - 1 AP</button>
-                </div>
-                <div className="reference__row">
-                    <button className="reference__button" onClick={handleKnifeClick} disabled={player1AP < 2 || player2AP < 2}>Knife - 2 AP</button>
-                </div>
-                <div className="reference__row">
-                    <button className="reference__button" onClick={handleShootClick} disabled={player1AP < 2 || player2AP < 2}>Shoot - 2 AP</button>
+                <div className='reference__column'>
+                    <div className="reference__row">
+                        <button className="reference__button" onClick={handleKnifeClick} disabled={player1AP < 2 || player2AP < 2}>Knife - 2 AP</button>
+                    </div>
+                    <div className="reference__row">
+                        <button className="reference__button" onClick={handleShootClick} disabled={player1AP < 2 || player2AP < 2}>Shoot - 2 AP</button>
+                    </div>
                 </div>
             </div>
             <div className="skip">

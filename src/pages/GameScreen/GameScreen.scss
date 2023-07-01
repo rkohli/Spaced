@@ -24,7 +24,6 @@
 
             @include desktop {
                 flex-direction: row;
-
             }
             
             &--title {
@@ -33,9 +32,11 @@
                 font-weight: bold;
                 align-self: center;
                 font-family: "Arcade";
+                display: none;
 
                 @include desktop{
                     font-size: 3.5rem;
+                    display: block;
                 }
             }
         }
@@ -46,18 +47,43 @@
             justify-content: center;
             flex: 1;
             font-family: "Arcade";
-            margin-top: 10rem;
+            margin-top: -10rem;
+            display: none;
 
+            @include tablet {
+                margin-top: 3rem;
+            }
+            
             @include desktop {
                 margin-top: 4rem;
+                display: block;
+            }
+
+            &--mobile {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex: 1;
+                font-family: "Arcade";
+                margin-top: 13rem;
+
+                @include desktop {
+                    display: none;
+                }
             }
         }
         
         &__footer {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 90%;
-            padding: 1rem;
+            flex-direction: column;
+
+
+            @include desktop {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                width: 90%;
+                padding: 1rem;
+            }
         }
     }
