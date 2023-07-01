@@ -7,47 +7,67 @@
     flex-direction: column;
     align-items: center;
     background-color: #1d1d1d;
-    padding: 1rem;
+    padding: .5rem;
     padding-top: 0;
     border-radius: 0.8rem;
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     font-family: 'Arial', sans-serif;
     color: #fff;
-    width: 16.5rem;
+    width: 10rem;
     margin-bottom: 2rem;
+    
+    @include desktop {
+        padding: 1rem;
+        width: 16.5rem;
+    }
 }
 
 .reference {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1.6rem;
+    margin-bottom: .5rem;
+    
+    @include desktop {
+        margin-bottom: 1.6rem;
+    }
 
     &__header {
         text-align: center;
         
         &--text {
-            font-size: 1.5rem;
+            font-size: .8rem;
             font-weight: bold;
             font-family: "Arcade";
+
+            @include desktop {
+                font-size: 1.5rem;
+            }
         }
     }
 
     &__row {
-        margin-bottom: 0.8rem;
+        margin-bottom: .4rem;
+
+        @include desktop {
+            margin-bottom: 0.8rem;
+        }
     }
 
     &__label {
-        font-size: 1.4rem;
+        font-size: .8rem;
         font-weight: bold;
-        margin-bottom: 0.4rem;
+
+        @include desktop {
+            font-size: 1.4rem;
+        }
     }
 
     &__button {
         display: block;
         width: 100%;
         padding: 0.6rem;
-        font-size: 1.4rem;
+        font-size: .8rem;
         font-weight: bold;
         text-align: center;
         background-color: #4caf50;
@@ -56,6 +76,10 @@
         border-radius: 0.4rem;
         cursor: pointer;
         transition: background-color 0.5s ease;
+
+        @include desktop {
+            font-size: 1.4rem;
+        }
 
         &:disabled {
             background-color: #888;
@@ -75,7 +99,7 @@
 
     button {
         padding: 0.6rem 1.2rem;
-        font-size: 1.4rem;
+        font-size: .8rem;
         font-weight: bold;
         background-color: #4caf50;
         color: #fff;
@@ -83,6 +107,10 @@
         border-radius: 0.4rem;
         cursor: pointer;
         transition: background-color 0.5s ease;
+
+        @include desktop {
+            font-size: 1.4rem;
+        }
 
         &:hover {
             background-color: #2d6f30;

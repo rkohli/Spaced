@@ -5,33 +5,53 @@
 .player__info {
     background-color: #1d1d1d;
     border-radius: 0.8rem;
-    padding: 1rem;
+    padding: .5rem;
     padding-top: 0;
     color: #fff;
     text-align: center;
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     font-family: "Arcade", 'Arial', sans-serif;
 
+    @include desktop {
+        padding: 1rem;
+    }
+
     &--top {
-        margin-bottom: 1.2rem;
+        @include desktop{
+            margin-bottom: 1.2rem;
+        }
     }
 
     &--name {
-        font-size: 2rem;
+        font-size: 1.2rem;
         font-weight: bold;
         margin-bottom: 0.8rem;
+        
+        @include desktop{
+            font-size: 2rem;
+        }
     }
 
     &--health, &--ap {
-        font-size: 1.2rem;
+        font-size: .8rem;
+
+        @include desktop{
+            font-size: 1.2rem;
+        }
 
         &::before {
             content: '';
             display: inline-block;
-            width: 1.2rem;
-            height: 1.2rem;
+            width: .6rem;
+            height: .6rem;
             border-radius: 50%;
-            margin-right: 0.6rem;
+            margin-right: 0.4rem;
+
+            @include desktop{
+                width: 1.2rem;
+                height: 1.2rem;
+                margin-right: 0.6rem;
+            }
         }
     }
 

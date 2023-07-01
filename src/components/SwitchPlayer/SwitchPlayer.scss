@@ -20,13 +20,21 @@
     text-align: center;
 
     &__text {
-        font-size: 5rem;
         font-family: "Arcade";
+        font-size: 2rem;
+
+        @include desktop {
+            font-size: 4rem;
+        }
     }
     
     &__subtext {
-        font-size: 2.5rem;
         font-family: "Arcade";
+        font-size: 1.2rem;
+        
+        @include desktop {
+            font-size: 2.5rem;
+        }
     }
 
     &__button {

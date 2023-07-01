@@ -7,22 +7,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     margin: -1rem;
     background-color: #1d1d1d;
     font-family: "Arcade";
+    width: 100%;
+    height: 100%;
+    position: fixed;
     
     &__text {
-    font-size: 6rem;
-    color: #fff;
-    margin-bottom: 6rem;
-    margin-top: -6rem;
+        font-size: 3rem;
+        color: #fff;
+        margin-bottom: 3rem;
+        
+        @include desktop {
+            margin-bottom: 6rem;
+            font-size: 6rem;
+        }
     }
 }
 
 .restart-button {
     padding: .8rem 2rem;
-    font-size: 1.2rem;
+    font-size: .8rem;
     background-color: #f44336;
     color: #fff;
     font-family: "Arcade";
@@ -30,6 +36,11 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 2rem;
+
+    @include desktop {
+        font-size: 1.2rem;
+    }
 
     &:hover {
         background-color: #4caf50;
