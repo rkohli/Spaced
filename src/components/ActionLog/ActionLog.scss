@@ -10,11 +10,12 @@
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     font-family: 'Arial', sans-serif;
     color: #fff;
-    height: 15rem;
-    max-height: 15rem;
-    width: 16rem;
+    height: 14.3rem;
+    max-height: 14.3rem;
+    width: 10rem;
     overflow-y: auto;
     margin-bottom: 2rem;
+    margin-top: -10rem;
 
     @include desktop {
         padding: 1rem;
@@ -29,7 +30,7 @@
         justify-content: center;
 
         &--title {
-            font-size: 1rem;
+            font-size: .8rem;
             font-weight: bold;
             font-family: "Arcade";
             margin-bottom: 0rem;
@@ -46,7 +47,7 @@
         margin: 0;
 
         &--item {
-            font-size: 1rem;
+            font-size: .8rem;
             margin-bottom: 0.2rem;
             margin-left: 1.4rem;
 

@@ -9,7 +9,6 @@
     padding-top: 0;
     color: #fff;
     text-align: center;
-    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     font-family: "Arcade", 'Arial', sans-serif;
 
     @include desktop {
@@ -23,7 +22,7 @@
     }
 
     &--name {
-        font-size: 1.2rem;
+        font-size: .9rem;
         font-weight: bold;
         margin-bottom: 0.8rem;
         
@@ -33,7 +32,7 @@
     }
 
     &--health, &--ap {
-        font-size: .8rem;
+        font-size: .6rem;
 
         @include desktop{
             font-size: 1.2rem;
@@ -42,8 +41,8 @@
         &::before {
             content: '';
             display: inline-block;
-            width: .6rem;
-            height: .6rem;
+            width: .4rem;
+            height: .4rem;
             border-radius: 50%;
             margin-right: 0.4rem;
 

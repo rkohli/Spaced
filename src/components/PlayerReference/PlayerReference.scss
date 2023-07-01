@@ -13,13 +13,15 @@
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     font-family: 'Arial', sans-serif;
     color: #fff;
-    width: 16rem;
+    width: 10rem;
     margin-bottom: .5rem;
+    margin-top: -10rem;
     
     @include desktop {
         padding: 1rem;
         width: 17rem;
         margin-bottom: 2rem;
+        margin-top: 0;
     }
 }
 
@@ -38,21 +40,13 @@
         text-align: center;
         
         &--text {
-            font-size: 1rem;
+            font-size: .8rem;
             font-weight: bold;
             font-family: "Arcade";
 
             @include desktop {
                 font-size: 1.5rem;
             }
-        }
-    }
-
-    &__column {
-        display: flex;
-
-        @include desktop {
-            flex-direction: column;
         }
     }
 
@@ -70,7 +64,7 @@
     }
 
     &__label {
-        font-size: 1rem;
+        font-size: .8rem;
         font-weight: bold;
 
         @include desktop {
@@ -82,7 +76,7 @@
         display: block;
         width: 100%;
         padding: 0.6rem;
-        font-size: 1rem;
+        font-size: .8rem;
         font-weight: bold;
         text-align: center;
         background-color: #4caf50;
@@ -114,7 +108,7 @@
 
     button {
         padding: 0.6rem 1.2rem;
-        font-size: 1rem;
+        font-size: .8rem;
         font-weight: bold;
         background-color: #4caf50;
         color: #fff;

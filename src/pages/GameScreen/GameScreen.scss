@@ -43,16 +43,10 @@
         
         &__map {
             display: flex;
-            align-items: center;
-            justify-content: center;
             flex: 1;
             font-family: "Arcade";
             margin-top: -10rem;
             display: none;
-
-            @include tablet {
-                margin-top: 3rem;
-            }
             
             @include desktop {
                 margin-top: 4rem;
@@ -61,8 +55,6 @@
 
             &--mobile {
                 display: flex;
-                align-items: center;
-                justify-content: center;
                 flex: 1;
                 font-family: "Arcade";
                 margin-top: 13rem;
@@ -75,15 +67,13 @@
         
         &__footer {
             display: flex;
-            flex-direction: column;
-
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 95%;
+            padding: 1rem;
 
             @include desktop {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-                width: 90%;
-                padding: 1rem;
+
             }
         }
     }
