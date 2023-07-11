@@ -65,7 +65,7 @@ const Home = ({ setPlayer1, setPlayer2 }) => {
                             <div className='instructions-panel'>
                                 <p>Each player will start the game in a random location on the map with 2 Health. The first player to utilize their actions and the action log to find their opponent and reduce their opponent's Health to 0 will win!</p>
                                 <p>Players will start each turn with 3 Action Points (AP) and will be able to spend them by performing actions like Move, Listen, Knife, and Shoot. Each action players take will be recorded at the top of the Action Log for both players to see.</p>
-                                <p>When a player is out of AP or is done taking their turn, they should click the Next Turn button and pass the screen to their opponent. In order to prevent cheating, when a player is taking their turn, their opponent should not be able to see the gamescreen.</p>
+                                <p>When a player runs out of AP or is done taking their turn, they should click the Next Turn button and pass the screen to their opponent. In order to prevent cheating, when a player is taking their turn, their opponent should not be able to see the gamescreen.</p>
                                 <ul>
                                     <li>Move costs 1 AP and will allow the player to move to an adjacent room (or to their own room) by clicking the room on the map.</li>
                                     <li>Listen costs 1 AP and will allow the player to see which quadrant of the map their opponent is in by highlighting those rooms.</li>
