@@ -6,7 +6,7 @@ import Map from '../../components/Map/Map';
 import PlayerReference from '../../components/PlayerReference/PlayerReference';
 import ActionLog from '../../components/ActionLog/ActionLog';
 import SwitchPlayer from '../../components/SwitchPlayer/SwitchPlayer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 
 const GameScreen = ({player1, player2}) => {
@@ -14,20 +14,23 @@ const GameScreen = ({player1, player2}) => {
     const [player2Health, setPlayer2Health] = useState(2)
     const [player1AP, setPlayer1AP] = useState(3)
     const [player2AP, setPlayer2AP] = useState(3)
-    // const [player1Position, setPlayer1Position] = useState({ x: 0, y: 0 });
-    // const [player2Position, setPlayer2Position] = useState({ x: 3, y: 3 });
     const [highlightedCells, setHighlightedCells] = useState([]);
-    const [currentPlayer, setCurrentPlayer] = useState('player1');
+    const [currentPlayer, setCurrentPlayer] = useState('');
     const [isMoveButtonClicked, setIsMoveButtonClicked] = useState(false);
     const [isListenCellHighlighted, setIsListenCellHighlighted] = useState(false);
     const [isKnifeButtonClicked, setIsKnifeButtonClicked] = useState(false);
     const [isShootButtonClicked, setIsShootButtonClicked] = useState(false);
     const [showSwitchPlayer, setShowSwitchPlayer] = useState(true);
     const [actionLog, setActionLog] = useState([]);
+    const navigate = useNavigate();
 
     const currentPlayerName = currentPlayer === 'player1' ? `${player1}` : `${player2}`;
     const opposingPlayerName = currentPlayer === 'player1' ? `${player2}` : `${player1}`;
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        const randomPlayer = Math.random() < 0.5 ? 'player1' : 'player2';
+        setCurrentPlayer(randomPlayer);
+    }, []);
 
     const getRandomPositon = () => {
         const randomX = Math.floor(Math.random() * 4);

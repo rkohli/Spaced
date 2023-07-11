@@ -12,7 +12,8 @@
         align-items: center;
         font-family: 'Arial', sans-serif;
         width: 100%;
-        height: 100%;
+        // height: 100%;
+        overflow-y: auto;
         position: fixed;
         
         &__header {
@@ -57,7 +58,7 @@
                 display: flex;
                 flex: 1;
                 font-family: "Arcade";
-                margin-top: 13rem;
+                margin-top: 12rem;
 
                 @include desktop {
                     display: none;
@@ -71,6 +72,7 @@
             align-items: flex-start;
             width: 90%;
             padding: 1rem;
+            margin-bottom: 2rem;
 
             @include desktop {
 
