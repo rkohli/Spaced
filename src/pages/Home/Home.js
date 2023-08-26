@@ -64,16 +64,18 @@ const Home = ({ setPlayer1, setPlayer2 }) => {
                 <button className='name__form--button--instructions' onClick={handleInstructionsClick}>Instructions</button>
                 {showInstructions && (
                     <div className='instructions-panel'>
-                        <p>Each player will start the game in a random location on the map with 2 Health. The first player to utilize their actions and the action log to find their opponent and reduce their opponent's Health to 0 will win!</p>
-                        <p>Players will start each turn with 3 Action Points (AP) and will be able to spend them performing actions like Move, Listen, Knife, and Shoot. Each action players take will be recorded at the top of the Action Log for both players to see.</p>
-                        <p>When a player runs out of AP or is done taking their turn, they should click the Next Turn button and pass the screen to their opponent. In order to prevent cheating, when your opponent is taking their turn, dont look at their gamescreen!</p>
+                        <p>Welcome to "Spaced!" – the thrilling 2-player man hunt where strategy and stealth collide!</p>
+                        <p>Your challenge? Start in a random spot on the map with 2 Health. Your goal: track down your rival and drain their Health to zero. First to do it wins!</p>
+                        <p>Ready for action? You've got 3 Action Points (AP) each turn. Unleash actions like a pro: Move, Listen, Knife, and Shoot.</p> 
+                        <p>But remember - every play's recorded on the action-packed Action Log, and is shared by both players.</p>
+                        <p>Honor above all! When your AP is spent or you're passing the game, hit Next Turn and don't peek at your rival's screen! Keep the suspense alive!</p>
                         <ul>
-                            <li>Move costs 1 AP and will allow a player to move to an adjacent room (or to their own room) by clicking the room on the map.</li>
-                            <li>Listen costs 1 AP and will allow a player to see which quadrant of the map their opponent is in by highlighting 4 possible rooms they could be in. Be careful, your opponent could be in the same room as you!</li>
-                            <li>Knife costs 2 AP and will allow a player to attack an adjacent room (or their own room). If their opponent is in the chosen room, their opponent will lose 1 Health.</li>
-                            <li>Shoot costs 2 AP and will allow a player to shoot an entire row or column on the map by clicking any room in the highlighted row or column. If their opponent is in the chosen row or column (or in the player's own room), their opponent will lose 1 Health. While the Shoot action is powerful, it is also very loud, and will reveal the player's location in the Action Log.</li>
+                            <li>Move: Slide & conquer! For 1 AP, hop to an adjacent room or back to yours. Just tap on the map to move.</li>
+                            <li>Listen: Call the shadows! Use 1 AP to light up four rooms your rival might lurk in. Watch out – they could be in yours!</li>
+                            <li>Knife: Strike with precision! Spend 2 AP to knife an adjacent room or even your own. Hit the mark, they lose 1 Health.</li>
+                            <li>Shoot: Rain chaos! For 2 AP, blast a whole row or column. Just click a lit room. Score a hit, they lose 1 Health. But beware, the powerful Shoot action will let your opponent know where you shot from!</li>
                         </ul>
-                        <p className='instructions-panel--final'>Good luck, and good hunting!</p>
+                        <p className='instructions-panel--final'>Ready for the hunt? Best of luck, and may the slyest hunter triumph!</p>
                     </div>
                 )}
             </div>
